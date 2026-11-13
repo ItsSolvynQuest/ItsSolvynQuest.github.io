@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="hi-Latn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<title>THE SIMULATION — Story Index</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,800;1,9..144,400&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0f1626;
+    --bg2: #172140;
+    --bg3: #1d2a4d;
+    --ink: #efe8d6;
+    --dim: #9aa6bd;
+    --ice: #a8d8f7;
+    --sodium: #ffa23c;
+    --card: rgba(255, 255, 255, 0.045);
+    --card-border: rgba(168, 216, 247, 0.22);
+    --serif: 'Fraunces', Georgia, 'Times New Roman', serif;
+    --ui: 'Zen Kaku Gothic New', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --snow: 0.45;
+  }
+
+  * { box-sizing: border-box; }
+  html {
+    color-scheme: dark;
+    scroll-behavior: smooth;
+    scroll-padding-top: 1.5rem;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: linear-gradient(180deg, var(--bg), var(--bg2) 55%, var(--bg3));
+    background-attachment: fixed;
+    color: var(--ink);
+    font: 400 1.05rem/1.75 var(--serif);
+    padding: env(safe-area-inset-top, 0px) 0 env(safe-area-inset-bottom, 0px);
+    -webkit-text-size-adjust: 100%;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--ice);
+    outline-offset: 3px;
+  }
+
+  /* Ambient Snow (matches chapter.css) */
+  body::before, body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 1s ease;
+  }
+  body::before {
+    opacity: calc(var(--snow) * 0.85);
+    background:
+      radial-gradient(3px 3px at 30px 40px, #fff 50%, transparent),
+      radial-gradient(4px 4px at 120px 150px, #fff 50%, transparent),
+      radial-gradient(3px 3px at 210px 70px, #e6f3ff 50%, transparent),
+      radial-gradient(4px 4px at 270px 230px, #fff 50%, transparent),
+      radial-gradient(3px 3px at 70px 260px, #e6f3ff 50%, transparent);
+    background-size: 310px 310px;
+  }
+  body::after {
+    opacity: calc(var(--snow) * 0.6);
+    background:
+      radial-gradient(2px 2px at 20px 25px, #fff 50%, transparent),
+      radial-gradient(2px 2px at 95px 110px, #dfefff 50%, transparent),
+      radial-gradient(2px 2px at 150px 40px, #fff 50%, transparent),
+      radial-gradient(2px 2px at 60px 150px, #fff 50%, transparent);
+    background-size: 190px 190px;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    body::before { animation: fallA 11s linear infinite; }
+    body::after { animation: fallB 7s linear infinite; }
+    @keyframes fallA { to { background-position: -70px 310px; } }
+    @keyframes fallB { to { background-position: 45px 190px; } }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    body::before, body::after { display: none; }
+  }
+
+  .wrap {
+    position: relative;
+    z-index: 2;
+    max-width: 44rem;
+    margin: 0 auto;
+    padding: 1.25rem 1.25rem 4.5rem;
+  }
+
+  /* Top Navigation Bar */
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.65rem 0 1.4rem;
+    border-bottom: 1px solid rgba(168, 216, 247, 0.16);
+    font-family: var(--ui);
+  }
+  .brand {
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 0.08em;
+    color: var(--ice);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  .nav-links a, .icon-btn {
+    color: var(--dim);
+    text-decoration: none;
+    font: 500 0.88rem/1 var(--ui);
+    padding: 0.45rem 0.75rem;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    background: transparent;
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s, background 0.2s;
+  }
+  .nav-links a:hover, .icon-btn:hover {
+    color: var(--ink);
+    border-color: rgba(168, 216, 247, 0.28);
+    background: rgba(255, 255, 255, 0.04);
+  }
+  .icon-btn[aria-pressed="true"] {
+    color: var(--ice);
+    border-color: rgba(168, 216, 247, 0.4);
+    background: rgba(168, 216, 247, 0.09);
+  }
+
+  /* Hero Section */
+  .hero {
+    padding: 2.6rem 0 2.2rem;
+  }
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font: 500 0.8rem/1 var(--ui);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--sodium);
+    background: rgba(255, 162, 60, 0.12);
+    border: 1px solid rgba(255, 162, 60, 0.3);
+    padding: 0.35rem 0.75rem;
+    border-radius: 999px;
+    margin-bottom: 1rem;
+  }
+  h1 {
+    font: 800 clamp(2.2rem, 8vw, 3.4rem)/1.05 var(--serif);
+    letter-spacing: -0.025em;
+    margin: 0 0 0.85rem;
+    color: #fff;
+  }
+  .tagline {
+    font: 400 1.08rem/1.7 var(--serif);
+    color: var(--ink);
+    opacity: 0.92;
+    margin: 0 0 1.6rem;
+    max-width: 38rem;
+  }
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    font: 600 0.95rem/1 var(--ui);
+    padding: 0.85rem 1.35rem;
+    border-radius: 999px;
+    text-decoration: none;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: transform 0.15s ease, background 0.2s, border-color 0.2s, color 0.2s;
+  }
+  .btn:active { transform: translateY(1px); }
+  .btn-primary {
+    background: var(--ice);
+    color: #0b1324;
+  }
+  .btn-primary:hover {
+    background: #c7e7fb;
+  }
+  .btn-secondary {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--ink);
+    border-color: rgba(168, 216, 247, 0.35);
+  }
+  .btn-secondary:hover {
+    border-color: var(--ice);
+    background: rgba(168, 216, 247, 0.1);
+  }
+
+  /* Story Console Stats Strip */
+  .console-strip {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 0.75rem;
+    margin: 0 0 2.5rem;
+    padding: 0.95rem 1.1rem;
+    border-radius: 0.95rem;
+    background: rgba(0, 0, 0, 0.28);
+    border: 1px solid rgba(168, 216, 247, 0.16);
+    font-family: var(--ui);
+  }
+  .stat-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--dim);
+    margin-bottom: 0.2rem;
+  }
+  .stat-val {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--ice);
+  }
+  .stat-val.amber { color: var(--sodium); }
+
+  /* Section Headings & Controls */
+  .section-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin: 2.2rem 0 1.1rem;
+  }
+  h2 {
+    font: 800 1.55rem/1.2 var(--serif);
+    margin: 0;
+    color: #fff;
+  }
+  .filter-row {
+    display: flex;
+    gap: 0.45rem;
+    flex-wrap: wrap;
+    font-family: var(--ui);
+  }
+  .chip {
+    font: 500 0.84rem/1 var(--ui);
+    padding: 0.45rem 0.85rem;
+    border-radius: 999px;
+    border: 1px solid rgba(168, 216, 247, 0.22);
+    background: transparent;
+    color: var(--dim);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .chip:hover { color: var(--ink); border-color: rgba(168, 216, 247, 0.45); }
+  .chip.active {
+    background: rgba(168, 216, 247, 0.15);
+    color: var(--ice);
+    border-color: var(--ice);
+  }
+
+  .search-wrap {
+    margin-bottom: 1.2rem;
+  }
+  .search-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border-radius: 0.8rem;
+    border: 1px solid rgba(168, 216, 247, 0.24);
+    background: rgba(0, 0, 0, 0.28);
+    color: var(--ink);
+    font: 400 0.95rem/1.4 var(--ui);
+  }
+  .search-input::placeholder { color: var(--dim); }
+
+  /* Chapter Cards */
+  .chapter-list {
+    display: grid;
+    gap: 1rem;
+  }
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    padding: 1.25rem 1.3rem;
+    border-radius: 1rem;
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    transition: border-color 0.2s, transform 0.15s, background 0.2s;
+  }
+  .card:hover {
+    border-color: rgba(168, 216, 247, 0.5);
+    background: rgba(255, 255, 255, 0.065);
+  }
+  .card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    font-family: var(--ui);
+  }
+  .ch-num {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--sodium);
+  }
+  .badge {
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 0.25rem 0.65rem;
+    border-radius: 999px;
+    background: rgba(168, 216, 247, 0.12);
+    color: var(--ice);
+  }
+  .badge.soon {
+    background: rgba(154, 166, 189, 0.14);
+    color: var(--dim);
+  }
+  .card h3 {
+    font: 700 1.32rem/1.25 var(--serif);
+    margin: 0;
+    color: #fff;
+  }
+  .card p {
+    margin: 0;
+    font: 400 0.95rem/1.6 var(--ui);
+    color: var(--dim);
+  }
+  .card-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 0.35rem;
+  }
+  .read-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font: 600 0.92rem/1 var(--ui);
+    color: var(--ice);
+    text-decoration: none;
+    padding: 0.55rem 1rem;
+    border-radius: 999px;
+    border: 1px solid rgba(168, 216, 247, 0.35);
+    background: rgba(168, 216, 247, 0.08);
+    cursor: pointer;
+  }
+  .read-link:hover {
+    background: var(--ice);
+    color: #0b1324;
+  }
+  .mark-btn {
+    background: transparent;
+    border: 1px solid rgba(154, 166, 189, 0.25);
+    color: var(--dim);
+    font: 500 0.82rem/1 var(--ui);
+    padding: 0.48rem 0.8rem;
+    border-radius: 999px;
+    cursor: pointer;
+  }
+  .mark-btn.done {
+    border-color: rgba(255, 162, 60, 0.5);
+    color: var(--sodium);
+    background: rgba(255, 162, 60, 0.1);
+  }
+
+  /* About & Contact Boxes */
+  .box {
+    margin: 2rem 0;
+    padding: 1.25rem 1.3rem;
+    border-radius: 1rem;
+    border: 1px solid rgba(168, 216, 247, 0.24);
+    background: rgba(255, 255, 255, 0.04);
+    font-family: var(--ui);
+  }
+  .box h2 {
+    font-size: 1.35rem;
+    margin-bottom: 0.65rem;
+  }
+  .box p {
+    margin: 0 0 0.9rem;
+    font-size: 0.95rem;
+    color: var(--ink);
+    opacity: 0.9;
+  }
+  .contact-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    margin-top: 0.9rem;
+  }
+  .contact-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.6rem 1rem;
+    border-radius: 999px;
+    border: 1px solid rgba(168, 216, 247, 0.32);
+    background: rgba(0, 0, 0, 0.25);
+    color: var(--ink);
+    font: 500 0.88rem/1 var(--ui);
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .contact-item:hover {
+    border-color: var(--ice);
+    color: var(--ice);
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 2rem 1rem;
+    color: var(--dim);
+    font-family: var(--ui);
+    border: 1px dashed rgba(168, 216, 247, 0.25);
+    border-radius: 1rem;
+  }
+
+  footer {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(168, 216, 247, 0.15);
+    text-align: center;
+    color: var(--dim);
+    font: 400 0.85rem/1.6 var(--ui);
+  }
+
+  /* Toast Notification */
+  .toast {
+    position: fixed;
+    left: 50%;
+    bottom: 1.4rem;
+    transform: translateX(-50%) translateY(120%);
+    background: #101b33;
+    color: var(--ice);
+    border: 1px solid rgba(168, 216, 247, 0.45);
+    padding: 0.7rem 1.15rem;
+    border-radius: 999px;
+    font: 500 0.88rem/1.2 var(--ui);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+    z-index: 20;
+    opacity: 0;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+    pointer-events: none;
+  }
+  .toast.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <nav class="topbar" aria-label="Main navigation">
+      <a class="brand" href="#top">THE SIMULATION</a>
+      <div class="nav-links">
+        <a href="#chapters">Chapters</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+        <button id="snowToggle" class="icon-btn" type="button" aria-pressed="true" title="Toggle snowfall">
+          🌨️ Snow: On
+        </button>
+      </div>
+    </nav>
+
+    <header id="top" class="hero">
+      <h1>THE SIMULATION</h1>
+      <p class="tagline">
+        Teen karod log Tokyo mein apni zindagi jee rahe hain—bina jaane ki upar ek observation room se koi unka mausam, aur shayad unki kahani, control kar raha hai.
+      </p>
+      <div class="hero-actions">
+        <a id="primaryReadBtn" class="btn btn-primary" href="chapter1.html">Read Chapter 1 &rsaquo;</a>
+        <a class="btn btn-secondary" href="chapter2.html">Latest: Chapter 2</a>
+      </div>
+    </header>
+
+    <section class="console-strip" aria-label="Story status">
+      <div>
+        <div class="stat-label">Published</div>
+        <div class="stat-val">2 Chapters</div>
+      </div>
+      <div>
+        <div class="stat-label">Your Progress</div>
+        <div id="progressText" class="stat-val amber">0 / 2 Read</div>
+      </div>
+    </section>
+
+    <section id="chapters">
+      <div class="section-head">
+        <h2>Sab Chapters</h2>
+        <div class="filter-row" role="group" aria-label="Filter chapters">
+          <button class="chip active" type="button" data-filter="all">All</button>
+          <button class="chip" type="button" data-filter="released">Released</button>
+          <button class="chip" type="button" data-filter="upcoming">Upcoming</button>
+        </div>
+      </div>
+
+      <div class="search-wrap">
+        <label for="chapterSearch" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">Search chapters</label>
+        <input id="chapterSearch" class="search-input" type="search" placeholder="Chapter, character, ya keyword dhundho (e.g. Ryan, Kenji, Snow)...">
+      </div>
+
+      <div id="chapterList" class="chapter-list">
+        <article class="card" data-status="released" data-id="ch1" data-keywords="chapter 1 late phir se ryan kenji daniel alexander tokyo snow">
+          <div class="card-top">
+            <span class="ch-num">Chapter 01</span>
+            <span class="badge">Released</span>
+          </div>
+          <h3>Late. Phir Se.</h3>
+          <p>Ryan ka ek normal din—late uthna, office bhaagna, stream—aur phir camera ghoomta hai creators pe, jahan Daniel kehta hai: “Poore Tokyo mein baraf gira dete hain.”</p>
+          <div class="card-actions">
+            <a class="read-link" href="chapter1.html" data-track="ch1">Read Chapter 1 &rsaquo;</a>
+            <button class="mark-btn" type="button" data-mark="ch1">Mark as Read</button>
+          </div>
+        </article>
+
+        <article class="card" data-status="released" data-id="ch2" data-keywords="chapter 2 kuch thanda sa aa raha hai temperature meguro kenji snow">
+          <div class="card-top">
+            <span class="ch-num">Chapter 02</span>
+            <span class="badge">Released</span>
+          </div>
+          <h3>Kuch Thanda Sa Aa Raha Hai</h3>
+          <p>Tokyo ka temperature girne lagta hai. Alexander aur Daniel apna plan shuru karte hain, aur Meguro ki khidki ke bahar pehli safed boond dikhti hai.</p>
+          <div class="card-actions">
+            <a class="read-link" href="chapter2.html" data-track="ch2">Read Chapter 2 &rsaquo;</a>
+            <button class="mark-btn" type="button" data-mark="ch2">Mark as Read</button>
+          </div>
+        </article>
+
+        <article class="card" data-status="upcoming" data-id="ch3" data-keywords="chapter 3 upcoming baraf snow tokyo">
+          <div class="card-top">
+            <span class="ch-num">Chapter 03</span>
+            <span class="badge soon">Coming Soon</span>
+          </div>
+          <h3>Chapter 3: Uploading Soon</h3>
+          <p>Agla chapter abhi likha ja raha hai. Jaise hi naya update aayega, yahin list mein add ho jayega.</p>
+          <div class="card-actions">
+            <button id="notifyBtn" class="read-link" type="button">Status Check Karein</button>
+          </div>
+        </article>
+      </div>
+
+      <div id="emptyState" class="empty-state" hidden>
+        Koi chapter match nahi hua. Search clear karke dobara dekho.
+      </div>
+    </section>
+
+    <section id="about" class="box">
+      <h2>About This Story</h2>
+      <p>
+        <b>THE SIMULATION</b> ek sci-fi slice-of-life kahani hai jo Tokyo ke ek game developer Ryan aur observation room mein baithe do creators—Alexander aur Daniel—ke beech ghoomti hai.
+      </p>
+      <p style="margin-bottom:0">
+        Har chapter fast, mobile-friendly reading ke liye bana hai, aur aage ke chapters mein weather aur interactive effects bhi milenge.
+      </p>
+    </section>
+
+    <section id="contact" class="box">
+      <h2>Contact &amp; Feedback</h2>
+      <p>
+        Kahani kaisi lagi, koi bug mila, ya naye chapter ke liye koi idea dena ho toh neeche se directly contact kar sakte ho:
+      </p>
+      <div class="contact-grid">
+        <a id="emailLink" class="contact-item" href="mailto:Gajjaryug17112009@gmail.com?subject=THE%20SIMULATION%20Feedback">
+          ✉️ Gajjaryug17112009@gmail.com
+        </a>
+        <button id="copyEmailBtn" class="contact-item" type="button">
+          📋 Copy Email
+        </button>
+        <a class="contact-item" href="https://github.com/itssolvynquest" target="_blank" rel="noopener noreferrer">
+          💻 GitHub (@itssolvynquest)
+        </a>
+      </div>
+    </section>
+
+    <footer>
+      THE SIMULATION &bull; Built for GitHub Pages
+    </footer>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    (function () {
+      var STORAGE_KEY = 'sim_read_chapters_v1';
+      var SNOW_KEY = 'sim_snow_pref_v1';
+      var EMAIL = 'Gajjaryug17112009@gmail.com';
+
+      var root = document.documentElement;
+      var snowBtn = document.getElementById('snowToggle');
+      var toast = document.getElementById('toast');
+      var progressText = document.getElementById('progressText');
+      var primaryReadBtn = document.getElementById('primaryReadBtn');
+      var filterChips = Array.prototype.slice.call(document.querySelectorAll('[data-filter]'));
+      var searchInput = document.getElementById('chapterSearch');
+      var cards = Array.prototype.slice.call(document.querySelectorAll('#chapterList .card'));
+      var emptyState = document.getElementById('emptyState');
+      var markBtns = Array.prototype.slice.call(document.querySelectorAll('[data-mark]'));
+      var copyEmailBtn = document.getElementById('copyEmailBtn');
+      var notifyBtn = document.getElementById('notifyBtn');
+
+      var currentFilter = 'all';
+      var toastTimer = null;
+
+      function showToast(msg) {
+        toast.textContent = msg;
+        toast.classList.add('show');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(function () {
+          toast.classList.remove('show');
+        }, 2400);
+      }
+
+      function loadReadMap() {
+        try {
+          return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}') || {};
+        } catch (e) {
+          return {};
+        }
+      }
+
+      function saveReadMap(map) {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(map));
+        } catch (e) {}
+      }
+
+      function renderProgress() {
+        var map = loadReadMap();
+        var releasedIds = ['ch1', 'ch2'];
+        var count = 0;
+        releasedIds.forEach(function (id) {
+          if (map[id]) count++;
+        });
+        progressText.textContent = count + ' / ' + releasedIds.length + ' Read';
+
+        markBtns.forEach(function (btn) {
+          var id = btn.getAttribute('data-mark');
+          var isDone = !!map[id];
+          btn.classList.toggle('done', isDone);
+          btn.textContent = isDone ? '✓ Read' : 'Mark as Read';
+        });
+
+        if (map.ch1 && !map.ch2) {
+          primaryReadBtn.href = 'chapter2.html';
+          primaryReadBtn.innerHTML = 'Continue: Chapter 2 &rsaquo;';
+        } else {
+          primaryReadBtn.href = 'chapter1.html';
+          primaryReadBtn.innerHTML = 'Read Chapter 1 &rsaquo;';
+        }
+      }
+
+      markBtns.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var id = btn.getAttribute('data-mark');
+          var map = loadReadMap();
+          map[id] = !map[id];
+          saveReadMap(map);
+          renderProgress();
+          showToast(map[id] ? 'Chapter marked as read!' : 'Marked as unread.');
+        });
+      });
+
+      // Snow toggle
+      function setSnow(on) {
+        root.style.setProperty('--snow', on ? '0.45' : '0');
+        snowBtn.setAttribute('aria-pressed', on ? 'true' : 'false');
+        snowBtn.textContent = on ? '🌨️ Snow: On' : '🌨️ Snow: Off';
+        try {
+          localStorage.setItem(SNOW_KEY, on ? '1' : '0');
+        } catch (e) {}
+      }
+
+      var snowOn = true;
+      try {
+        var savedSnow = localStorage.getItem(SNOW_KEY);
+        if (savedSnow === '0') snowOn = false;
+      } catch (e) {}
+      setSnow(snowOn);
+
+      snowBtn.addEventListener('click', function () {
+        snowOn = !snowOn;
+        setSnow(snowOn);
+        showToast(snowOn ? 'Tokyo snowfall enabled' : 'Snowfall paused');
+      });
+
+      // Filter & Search
+      function applyFilters() {
+        var q = (searchInput.value || '').trim().toLowerCase();
+        var visibleCount = 0;
+        cards.forEach(function (card) {
+          var status = card.getAttribute('data-status');
+          var keywords = (card.getAttribute('data-keywords') || '').toLowerCase();
+          var text = card.textContent.toLowerCase();
+          var matchesFilter = currentFilter === 'all' || status === currentFilter;
+          var matchesQuery = !q || keywords.indexOf(q) !== -1 || text.indexOf(q) !== -1;
+          var show = matchesFilter && matchesQuery;
+          card.style.display = show ? '' : 'none';
+          if (show) visibleCount++;
+        });
+        emptyState.hidden = visibleCount > 0;
+      }
+
+      filterChips.forEach(function (chip) {
+        chip.addEventListener('click', function () {
+          currentFilter = chip.getAttribute('data-filter');
+          filterChips.forEach(function (c) { c.classList.remove('active'); });
+          chip.classList.add('active');
+          applyFilters();
+        });
+      });
+
+      searchInput.addEventListener('input', applyFilters);
+
+      // Copy Email with fallback
+      copyEmailBtn.addEventListener('click', function () {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(EMAIL).then(function () {
+            showToast('Email copied: ' + EMAIL);
+          }).catch(fallbackCopy);
+        } else {
+          fallbackCopy();
+        }
+      });
+
+      function fallbackCopy() {
+        var ta = document.createElement('textarea');
+        ta.value = EMAIL;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        try {
+          document.execCommand('copy');
+          showToast('Email copied: ' + EMAIL);
+        } catch (e) {
+          showToast('Email: ' + EMAIL);
+        }
+        document.body.removeChild(ta);
+      }
+
+      if (notifyBtn) {
+        notifyBtn.addEventListener('click', function () {
+          showToast('Chapter 3 jald aa raha hai—stay tuned!');
+        });
+      }
+
+      renderProgress();
+    })();
+  </script>
+</body>
+</html>
